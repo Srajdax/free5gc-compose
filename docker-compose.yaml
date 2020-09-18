@@ -18,38 +18,6 @@ services:
         aliases:
           - upf1
 
-  free5gc-upf-2:
-    container_name: upf2
-    build:
-      context: ./nf_upf
-      args:
-        DEBUG_TOOLS: "false"
-    command: ./free5gc-upfd -f ../config/upfcfg.yaml
-    volumes:
-      - ./config/upfcfg2.yaml:/free5gc/config/upfcfg.yaml
-    cap_add:
-      - NET_ADMIN
-    networks:
-      privnet:
-        aliases:
-          - upf2
-
-  free5gc-upf-b:
-    container_name: upfb
-    build:
-      context: ./nf_upf
-      args:
-        DEBUG_TOOLS: "false"
-    command: ./free5gc-upfd -f ../config/upfcfg.yaml
-    volumes:
-      - ./config/upfcfgb.yaml:/free5gc/config/upfcfg.yaml
-    cap_add:
-      - NET_ADMIN
-    networks:
-      privnet:
-        aliases:
-          - upfb
-
   db:
     container_name: mongodb
     image: mongo
