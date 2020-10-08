@@ -173,9 +173,7 @@ services:
         ipv4_address: 172.16.10.15
     depends_on:
       - free5gc-nrf
-      - free5gc-upf-1
-      - free5gc-upf-2
-      - free5gc-upf-b
+      - free5gc-upf
 
   free5gc-udm:
     container_name: udm
@@ -248,7 +246,7 @@ services:
     depends_on:
       - free5gc-amf
       - free5gc-smf
-      - free5gc-upf-b
+      - free5gc-upf
 
   free5gc-webui:
     container_name: webui
