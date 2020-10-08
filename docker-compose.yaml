@@ -13,7 +13,7 @@ services:
     cap_add:
       - NET_ADMIN
     ports:
-      - "2152:2152"
+      - "2152:2152/udp"
     networks:
       free5gc:
         ipv4_address: 172.16.10.18
