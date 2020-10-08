@@ -9,7 +9,7 @@ services:
         DEBUG_TOOLS: "false"
     command: ./free5gc-upfd -f ../config/upfcfg.yaml
     volumes:
-      - "./config/upfcfg1.yaml:/free5gc/config/upfcfg.yaml"
+      - "./config/upfcfg.yaml:/free5gc/config/upfcfg.yaml"
     cap_add:
       - NET_ADMIN
     ports:
