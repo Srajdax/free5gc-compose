@@ -1,34 +1,33 @@
-info:
-  version: 1.0.0
-  description: Routing information for UE
-
 ueRoutingInfo:
   - SUPI: imsi-2089300007487
-    AN: upf1
+    AN: upf.free5gc
     PathList:
-      - DestinationIP: 10.0.0.10
-        DestinationPort: 8888
+      - DestinationIP: 60.60.0.101
         UPF: !!seq
-          - BranchingUPF
-          - AnchorUPF1
+          - UPF
 
-      - DestinationIP: 10.0.0.11
-        DestinationPort: 9999
+      - DestinationIP: 60.60.0.103
         UPF: !!seq
-          - BranchingUPF
-          - AnchorUPF2
+          - UPF
 
   - SUPI: imsi-2089300007486
-    AN: upf2
+    AN: upf.free5gc
     PathList:
       - DestinationIP: 10.0.0.10
-        DestinationPort: 8888
         UPF: !!seq
-          - BranchingUPF
-          - AnchorUPF1
+          - UPF
 
       - DestinationIP: 10.0.0.11
-        DestinationPort: 9999
         UPF: !!seq
-          - BranchingUPF
-          - AnchorUPF2
+          - UPF
+
+routeProfile:
+  MEC1:
+    forwardingPolicyID: 10
+
+pfdDataForApp:
+  - applicationId: edge
+    pfds:
+      - pfdID: pfd1
+        flowDescriptions:
+          - permit out ip from 60.60.0.1 8080 to any

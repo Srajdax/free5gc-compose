@@ -4,20 +4,20 @@ info:
 
 configuration:
   # debugLevel: panic|fatal|error|warn|info|debug|trace
-  debugLevel: info
+  debugLevel: debug
 
   pfcp:
-    - addr: upf1
+    - addr: upf.free5gc
 
   gtpu:
-    - addr: upf1
+    - addr: upf.free5gc
     # [optional] gtpu.name
     # - name: upf.5gc.nctu.me
     # [optional] gtpu.ifname
     # - ifname: gtpif
 
-  apn_list:
-    - apn: internet
+  dnn_list:
+    - dnn: internet
       cidr: 60.60.0.0/24
       # [optional] apn_list[*].natifname
       # natifname: eth0

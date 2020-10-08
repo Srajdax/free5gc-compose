@@ -1,9 +1,8 @@
 version: '3.8'
 
 services:
-
-  free5gc-upf-1:
-    container_name: upf1
+  free5gc-upf:
+    container_name: upf
     build:
       context: ./nf_upf
       args:
@@ -13,10 +12,17 @@ services:
       - "./config/upfcfg1.yaml:/free5gc/config/upfcfg.yaml"
     cap_add:
       - NET_ADMIN
+    ports:
+      - "2152:2152"
     networks:
-      privnet:
+      free5gc:
+        ipv4_address: 172.16.10.18
         aliases:
-          - upf1
+          - upf.free5gc
+      data-network:
+        ipv4_address: 60.60.0.101
+        aliases:
+            - upf.data-network
 
   db:
     container_name: mongodb
@@ -27,7 +33,8 @@ services:
     volumes:
       - dbdata:/data/db
     networks:
-      privnet:
+      free5gc:
+        ipv4_address: 172.16.10.30
         aliases:
           - db
 
@@ -47,30 +54,12 @@ services:
       DB_URI: mongodb://db/free5gc
       GIN_MODE: release
     networks:
-      privnet:
+      free5gc:
+        ipv4_address: 172.16.10.12
         aliases:
-          - nrf
+          - nrf.free5gc
     depends_on:
       - db
-
-  free5gc-gnb:
-    container_name: gnb
-    build:
-      context: ./nf_gnb
-      args:
-        DEBUG_TOOLS: "false"
-    command: ./gnb -gnbcfg ../config/gnbcfg.conf
-    expose:
-      - "32000"
-    volumes:
-      - ./config/gnbcfg.conf:/free5gc/config/gnbcfg.conf
-      - ./config/free5GC.conf:/free5gc/config/free5GC.conf
-    environment:
-      GIN_MODE: release
-    networks:
-      privnet:
-        aliases:
-          - gnb
 
   free5gc-amf:
     container_name: amf
@@ -81,15 +70,18 @@ services:
     command: ./amf -amfcfg ../config/amfcfg.conf
     expose:
       - "29518"
+    ports:
+      - "38412:38412"
     volumes:
       - ./config/amfcfg.conf:/free5gc/config/amfcfg.conf
       - ./config/free5GC.conf:/free5gc/config/free5GC.conf
     environment:
       GIN_MODE: release
     networks:
-      privnet:
+      free5gc:
         aliases:
-          - amf
+          - amf.free5gc
+        ipv4_address: 172.16.10.10
     depends_on:
       - free5gc-nrf
 
@@ -108,9 +100,10 @@ services:
     environment:
       GIN_MODE: release
     networks:
-      privnet:
+      free5gc:
         aliases:
-          - ausf
+          - ausf.free5gc
+        ipv4_address: 172.16.10.11
     depends_on:
       - free5gc-nrf
 
@@ -129,9 +122,10 @@ services:
     environment:
       GIN_MODE: release
     networks:
-      privnet:
+      free5gc:
         aliases:
-          - nssf
+          - nssf.free5gc
+        ipv4_address: 172.16.10.13
     depends_on:
       - free5gc-nrf
 
@@ -150,9 +144,10 @@ services:
     environment:
       GIN_MODE: release
     networks:
-      privnet:
+      free5gc:
         aliases:
-          - pcf
+          - pcf.free5gc
+        ipv4_address: 172.16.10.14
     depends_on:
       - free5gc-nrf
 
@@ -172,9 +167,10 @@ services:
     environment:
       GIN_MODE: release
     networks:
-      privnet:
+      free5gc:
         aliases:
-          - smf
+          - smf.free5gc
+        ipv4_address: 172.16.10.15
     depends_on:
       - free5gc-nrf
       - free5gc-upf-1
@@ -196,9 +192,10 @@ services:
     environment:
       GIN_MODE: release
     networks:
-      privnet:
+      free5gc:
         aliases:
-          - udm
+          - udm.free5gc
+        ipv4_address: 172.16.10.16
     depends_on:
       - db
       - free5gc-nrf
@@ -221,9 +218,10 @@ services:
       DB_URI: mongodb://db/free5gc
       GIN_MODE: release
     networks:
-      privnet:
+      free5gc:
         aliases:
-          - udr
+          - udr.free5gc
+        ipv4_address: 172.16.10.17
     depends_on:
       - db
       - free5gc-nrf
@@ -244,9 +242,9 @@ services:
     cap_add:
       - NET_ADMIN
     networks:
-      privnet:
+      free5gc:
         aliases:
-          - n3iwf
+          - n3iwf.free5gc.org
     depends_on:
       - free5gc-amf
       - free5gc-smf
@@ -265,7 +263,7 @@ services:
     environment:
       - GIN_MODE=release
     networks:
-      privnet:
+      free5gc:
         aliases:
           - webui
     ports:
@@ -274,11 +272,23 @@ services:
       - db
 
 networks:
-  privnet:
+  free5gc:
+    driver: bridge
+    enable_ipv6: false
     ipam:
       driver: default
       config:
-        - subnet: 10.100.200.0/24
+        - subnet: 172.16.10.0/24
+          gateway: 172.16.10.1
+
+  data-network:
+    driver: bridge
+    enable_ipv6: false
+    ipam:
+      driver: default
+      config:
+        - subnet: 60.60.0.0/24
+          gateway: 60.60.0.1
 
 volumes:
   dbdata:
