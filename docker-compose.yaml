@@ -71,7 +71,7 @@ services:
     expose:
       - "29518"
     ports:
-      - "38412:38412"
+      - "38412:38412/sctp"
     volumes:
       - ./config/amfcfg.conf:/free5gc/config/amfcfg.conf
       - ./config/free5GC.conf:/free5gc/config/free5GC.conf
