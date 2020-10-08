@@ -276,6 +276,7 @@ networks:
       driver: default
       config:
         - subnet: 172.16.10.0/24
+          gateway: 172.16.10.1
 
   data-network:
     driver: bridge
@@ -283,6 +284,7 @@ networks:
       driver: default
       config:
         - subnet: 60.60.0.0/24
+          gateway: 60.60.0.1
 
 volumes:
   dbdata:
