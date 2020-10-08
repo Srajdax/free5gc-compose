@@ -27,9 +27,9 @@ services:
   db:
     container_name: mongodb
     image: mongo
-    command: mongod --port 27017
+    command: mongod --port 27018
     expose:
-      - "27017"
+      - "27018"
     volumes:
       - dbdata:/data/db
     networks:
@@ -260,7 +260,7 @@ networks:
       driver: default
       config:
         - subnet: 60.60.0.0/24
-          gateway: 60.60.0.1
+          gateway: 60.60.0.254
 
 volumes:
   dbdata:
