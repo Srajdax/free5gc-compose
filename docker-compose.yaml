@@ -16,7 +16,7 @@ services:
       - "2152:2152/udp"
     networks:
       free5gc:
-        ipv4_address: 172.16.10.18
+        ipv4_address: 172.16.100.18
         aliases:
           - upf.free5gc
       data-network:
@@ -34,7 +34,7 @@ services:
       - dbdata:/data/db
     networks:
       free5gc:
-        ipv4_address: 172.16.10.30
+        ipv4_address: 172.16.100.30
         aliases:
           - db
 
@@ -55,7 +55,7 @@ services:
       GIN_MODE: release
     networks:
       free5gc:
-        ipv4_address: 172.16.10.12
+        ipv4_address: 172.16.100.12
         aliases:
           - nrf.free5gc
     depends_on:
@@ -81,7 +81,7 @@ services:
       free5gc:
         aliases:
           - amf.free5gc
-        ipv4_address: 172.16.10.10
+        ipv4_address: 172.16.100.10
     depends_on:
       - free5gc-nrf
 
@@ -103,7 +103,7 @@ services:
       free5gc:
         aliases:
           - ausf.free5gc
-        ipv4_address: 172.16.10.11
+        ipv4_address: 172.16.100.11
     depends_on:
       - free5gc-nrf
 
@@ -125,7 +125,7 @@ services:
       free5gc:
         aliases:
           - nssf.free5gc
-        ipv4_address: 172.16.10.13
+        ipv4_address: 172.16.100.13
     depends_on:
       - free5gc-nrf
 
@@ -147,7 +147,7 @@ services:
       free5gc:
         aliases:
           - pcf.free5gc
-        ipv4_address: 172.16.10.14
+        ipv4_address: 172.16.100.14
     depends_on:
       - free5gc-nrf
 
@@ -170,7 +170,7 @@ services:
       free5gc:
         aliases:
           - smf.free5gc
-        ipv4_address: 172.16.10.15
+        ipv4_address: 172.16.100.15
     depends_on:
       - free5gc-nrf
       - free5gc-upf
@@ -193,7 +193,7 @@ services:
       free5gc:
         aliases:
           - udm.free5gc
-        ipv4_address: 172.16.10.16
+        ipv4_address: 172.16.100.16
     depends_on:
       - db
       - free5gc-nrf
@@ -219,7 +219,7 @@ services:
       free5gc:
         aliases:
           - udr.free5gc
-        ipv4_address: 172.16.10.17
+        ipv4_address: 172.16.100.17
     depends_on:
       - db
       - free5gc-nrf
@@ -242,7 +242,7 @@ services:
     networks:
       free5gc:
         aliases:
-          - n3iwf.free5gc.org
+          - n3iwf.free5gc
     depends_on:
       - free5gc-amf
       - free5gc-smf
@@ -275,8 +275,8 @@ networks:
     ipam:
       driver: default
       config:
-        - subnet: 172.16.10.0/24
-          gateway: 172.16.10.1
+        - subnet: 172.16.100.0/24
+          gateway: 172.16.100.1
 
   data-network:
     driver: bridge
