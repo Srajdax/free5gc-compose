@@ -1,29 +1,6 @@
 version: '3.8'
 
 services:
-  free5gc-upf:
-    container_name: upf
-    build:
-      context: ./nf_upf
-      args:
-        DEBUG_TOOLS: "false"
-    command: ./free5gc-upfd -f ../config/upfcfg.yaml
-    volumes:
-      - "./config/upfcfg.yaml:/free5gc/config/upfcfg.yaml"
-    cap_add:
-      - NET_ADMIN
-    ports:
-      - "2152:2152/udp"
-    networks:
-      free5gc:
-        ipv4_address: 172.16.100.18
-        aliases:
-          - upf.free5gc
-      data-network:
-        ipv4_address: 60.60.0.101
-        aliases:
-            - upf.data-network
-
   db:
     container_name: mongodb
     image: mongo
@@ -173,7 +150,6 @@ services:
         ipv4_address: 172.16.100.15
     depends_on:
       - free5gc-nrf
-      - free5gc-upf
 
   free5gc-udm:
     container_name: udm
@@ -253,14 +229,6 @@ networks:
       config:
         - subnet: 172.16.100.0/24
           gateway: 172.16.100.1
-
-  data-network:
-    driver: bridge
-    ipam:
-      driver: default
-      config:
-        - subnet: 60.60.0.0/24
-          gateway: 60.60.0.254
 
 volumes:
   dbdata:

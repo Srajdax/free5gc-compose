@@ -1,6 +1,6 @@
 ueRoutingInfo:
-  - SUPI: imsi-2089300007487
-    AN: upf.free5gc
+  - SUPI: imsi-2089300000001
+    AN: 172.16.10.2
     PathList:
       - DestinationIP: 60.60.0.101
         UPF: !!seq
@@ -10,14 +10,47 @@ ueRoutingInfo:
         UPF: !!seq
           - UPF
 
-  - SUPI: imsi-2089300007486
-    AN: upf.free5gc
+  - SUPI: imsi-2089300000002
+    AN: 172.16.10.2
     PathList:
-      - DestinationIP: 10.0.0.10
+      - DestinationIP: 60.60.0.101
         UPF: !!seq
           - UPF
 
-      - DestinationIP: 10.0.0.11
+      - DestinationIP: 60.60.0.103
+        UPF: !!seq
+          - UPF
+
+  - SUPI: imsi-2089300000003
+    AN: 172.16.10.2
+    PathList:
+      - DestinationIP: 60.60.0.101
+        UPF: !!seq
+          - UPF
+
+      - DestinationIP: 60.60.0.103
+        UPF: !!seq
+          - UPF
+
+  - SUPI: imsi-2089300000004
+    AN: 172.16.10.2
+    PathList:
+      - DestinationIP: 60.60.0.101
+        UPF: !!seq
+          - UPF
+
+      - DestinationIP: 60.60.0.103
+        UPF: !!seq
+          - UPF
+
+  - SUPI: imsi-2089300000005
+    AN: 172.16.10.2
+    PathList:
+      - DestinationIP: 60.60.0.101
+        UPF: !!seq
+          - UPF
+
+      - DestinationIP: 60.60.0.103
         UPF: !!seq
           - UPF
 
